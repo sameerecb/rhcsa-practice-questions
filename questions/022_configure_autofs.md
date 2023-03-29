@@ -9,13 +9,7 @@ Configure **autofs** to automount the home directories of LDAP users.
 * **ldapuserX** home directory should be automounted locally beneath **/home** as **/home/guests/ldapuserX**
 * home directories must be writable by their users
 * while You are able to login as any of the users **ldapuser1-20** the only home directory You are able to access is **ldapuserX**
- 
-
-***
-(scroll down for an answer)
-
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+ ***
 
 ### Answer:
 
@@ -40,7 +34,6 @@ vi /etc/auto.home
 # put below contents there
 * -rw,sync classroom.example.com:/home/guests/&
 ```
-
 using wildcard * sign as a first parameter and & as the same in path on remote server will make sure that any user that is logged 
 using LDAP will have its name used as parameter for mounting.
 
@@ -50,18 +43,12 @@ using LDAP will have its name used as parameter for mounting.
 systemctl enable autofs.service
 systemctl start autofs.service
 ```
-
 * Just SSH locally with user that is supposed to exist on LDAP server and check the home directory:
-
 ```
 ssh ldapuser5@localhost
 cd
 pwd  # it should be /home/guests/ldapuser5
 ```
-
-
 ### Additional comment:
-
 **autofs** is working in user space - and mounting network shares via **/etc/fstab** is using root context
-
 Name of the config file in **/etc/auto.master.d** is not important - the only important thing is that is must have **.autofs** suffix
